@@ -1,20 +1,61 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 const Features = (): React.ReactNode => {
   return (
-    <div className='flex flex-col items-center justify-center w-full bg-slate-50 rounded-xl p-5 xl:py-8 xl:px-8'>
-      {/* Text */}
-      <div className='flex flex-col items-center justify-center'>
-        <p className='font-medium text-lg py-4'>Features</p>
-        <p className='font-bold text-3xl lg:text-5xl pt-1 xl:pt-3'>Revolutionize Investing with AI-</p>
-        <p className='font-bold text-3xl lg:text-5xl'>Powered tools</p>  
+    <div className='flex flex-col items-center justify-center w-full bg-gradient-to-br from-slate-50 to-blue-50 rounded-2xl p-8 xl:py-16 xl:px-12'>
+      {/* Header */}
+      <div className='flex flex-col items-center justify-center text-center max-w-4xl'>
+        <p className='font-medium text-lg py-4 text-blue-600'>Features</p>
+        <h2 className='font-bold text-3xl lg:text-5xl pt-1 xl:pt-3 text-gray-800'>
+          Revolutionize Your Finances with
+        </h2>
+        <h2 className='font-bold text-3xl lg:text-5xl text-blue-600'>
+          AI-Powered Tools
+        </h2>
+        <p className='text-gray-600 text-lg mt-6 max-w-2xl'>
+          Experience the future of financial management with intelligent automation, 
+          real-time insights, and personalized recommendations.
+        </p>
       </div>
 
-      {/* Cards */}
-      <div className='flex items-center justify-center w-full pt-10 space-x-2 xl:space-x-5'>
-        <Card1 />
-        <Card2 />
-        <Card3 />
+      {/* Feature Cards */}
+      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 xl:gap-8 w-full pt-12 max-w-7xl'>
+        <FeatureCard
+          icon="🤖"
+          title="AI-Powered Analytics"
+          description="Get intelligent insights into your spending patterns, investment opportunities, and financial health with advanced machine learning algorithms."
+          gradient="from-blue-500 to-purple-600"
+        />
+        <FeatureCard
+          icon="📊"
+          title="Real-Time Tracking"
+          description="Monitor your expenses, income, and investments in real-time with automatic categorization and smart notifications."
+          gradient="from-green-500 to-teal-600"
+        />
+        <FeatureCard
+          icon="🎯"
+          title="Goal Management"
+          description="Set and track financial goals with personalized roadmaps, milestone tracking, and automated savings recommendations."
+          gradient="from-orange-500 to-red-600"
+        />
+        <FeatureCard
+          icon="🔒"
+          title="Bank-Level Security"
+          description="Your financial data is protected with enterprise-grade encryption, multi-factor authentication, and secure cloud storage."
+          gradient="from-purple-500 to-pink-600"
+        />
+        <FeatureCard
+          icon="📈"
+          title="Investment Insights"
+          description="Make informed investment decisions with AI-driven market analysis, portfolio optimization, and risk assessment tools."
+          gradient="from-indigo-500 to-blue-600"
+        />
+        <FeatureCard
+          icon="💡"
+          title="Smart Recommendations"
+          description="Receive personalized financial advice, budget optimizations, and investment suggestions tailored to your unique situation."
+          gradient="from-yellow-500 to-orange-600"
+        />
       </div>
     </div>
   );
@@ -22,73 +63,31 @@ const Features = (): React.ReactNode => {
 
 export default Features;
 
-const Card1 = () => {
-  const [checkboxes, setCheckboxes] = useState({
-    cirrusApr: false,
-    cirrusMay: false,
-    cirrusJul: false,
-  });
+interface FeatureCardProps {
+  icon: string;
+  title: string;
+  description: string;
+  gradient: string;
+}
 
-  const handleCheckboxChange = (key: keyof typeof checkboxes) => {
-    setCheckboxes((prev) => {
-      const updatedState = { ...prev, [key]: !prev[key] };
-      return updatedState;
-    });
-  };
-
-
+const FeatureCard: React.FC<FeatureCardProps> = ({ icon, title, description, gradient }) => {
   return (
-    <div className='w-1/3 min-h-[28vh] bg-slate-200 rounded-xl'>
-      <div className='flex flex-col w-full h-full p-3 xl:p-5 gap-y-2 xl:gap-y-3'>
-        <CheckboxList 
-          displaytext="Cirrus update Apr 2025" 
-          is_checked={checkboxes.cirrusApr} 
-          onChange={() => handleCheckboxChange('cirrusApr')} 
-        />
-        <CheckboxList 
-          displaytext="Cirrus update May 2025" 
-          is_checked={checkboxes.cirrusMay} 
-          onChange={() => handleCheckboxChange('cirrusMay')} 
-        />
-        <CheckboxList 
-          displaytext="Cirrus update Jul 2025" 
-          is_checked={checkboxes.cirrusJul} 
-          onChange={() => handleCheckboxChange('cirrusJul')} 
-        />
+    <div className='group bg-white rounded-xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100'>
+      {/* Icon */}
+      <div className={`w-16 h-16 rounded-full bg-gradient-to-r ${gradient} flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform duration-300`}>
+        {icon}
       </div>
-    </div>
-  );
-};
-
-const Card2 = () => {
-  return (
-    <div className='w-1/3 min-h-[28vh] bg-indigo-200 rounded-xl'></div>
-  );
-};
-
-const Card3 = () => {
-  return (
-    <div className='w-1/3 min-h-[28vh] bg-slate-200 rounded-xl'></div>
-  );
-};
-
-type CheckboxListProps = {
-  displaytext: string;
-  is_checked: boolean;
-  onChange: () => void;
-};
-
-const CheckboxList = ({ displaytext, is_checked, onChange }: CheckboxListProps) => {
-  return (
-    <div className={`flex items-center justify-start w-full h-full p-4 xl:py-5 rounded-lg gap-x-2 
-      ${is_checked ? 'bg-blue-100 border border-blue-400' : 'border-0'}`}>
-      <input 
-        type="checkbox" 
-        className='w-5 h-5 checkbox' 
-        checked={is_checked} 
-        onChange={onChange} // Ensure onChange is being called
-      />
-      <p>{displaytext}</p>
+      
+      {/* Content */}
+      <h3 className='font-bold text-xl text-gray-800 mb-3 group-hover:text-blue-600 transition-colors duration-300'>
+        {title}
+      </h3>
+      <p className='text-gray-600 leading-relaxed'>
+        {description}
+      </p>
+      
+      {/* Hover Effect */}
+      <div className={`h-1 w-0 bg-gradient-to-r ${gradient} mt-4 group-hover:w-full transition-all duration-300 rounded-full`}></div>
     </div>
   );
 };

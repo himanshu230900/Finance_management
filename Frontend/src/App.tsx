@@ -36,22 +36,22 @@ function App(): React.ReactNode {
   }, [dispatch]);
 
   return !loading ? (
-    <div className="flex flex-col min-h-screen w-full items-center bg-gradient-to-b from-white to-blue-300">
-      <div className="flex flex-col w-full max-w-7xl mx-auto justify-center">
-        {/* <NavBar />
-        <Outlet /> Renders child routes */}
-        {/* Fixed Navbar */}
-        <div className="sticky top-0 w-full shadow-b-md z-50 mx-auto h-[4rem] ">
-          <NavBar />
-        </div>
-
-        {/* Scrollable Content */}
-        <div className="flex flex-col w-full max-w-7xl mx-auto px-4 pt-[4rem] overflow-auto scrollbar-hide h-[calc(100vh-4rem)]">
+    <div className="flex flex-col min-h-screen w-full bg-gradient-to-b from-white to-blue-300">
+      <div className="flex flex-col w-full max-w-7xl mx-auto">
+        {/* Navigation Bar */}
+        <NavBar />
+        
+        {/* Main Content */}
+        <main className="flex-1">
           <Outlet />
-        </div>
+        </main>
       </div>
     </div>
-  ) : null;
+  ) : (
+    <div className="flex items-center justify-center min-h-screen">
+      <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600"></div>
+    </div>
+  );
 }
 
 export default App;
